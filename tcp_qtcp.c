@@ -181,11 +181,11 @@ static void update_qtcp_ai(struct sock *sk)
   struct tcp_sock *tp = tcp_sk(sk);
   struct qtcp *ca = inet_csk_ca(sk);
   if (tp->snd_cwnd > qtcp_aimd_vals[ca->ai].cwnd) {
-	while (tp->snd_cwnd > qtcp_aimd_vals[ca->ai].cwnd && ca->ai < HSTCP_AIMD_MAX - 1)
-		ca->ai++;
+    while (tp->snd_cwnd > qtcp_aimd_vals[ca->ai].cwnd && ca->ai < HSTCP_AIMD_MAX - 1)
+      ca->ai++;
   } else if (ca->ai && tp->snd_cwnd <= qtcp_aimd_vals[ca->ai-1].cwnd) {
-	while (ca->ai && tp->snd_cwnd <= qtcp_aimd_vals[ca->ai-1].cwnd)
-		ca->ai--;
+    while (ca->ai && tp->snd_cwnd <= qtcp_aimd_vals[ca->ai-1].cwnd)
+      ca->ai--;
   }
 }
 
@@ -250,6 +250,7 @@ static void tcp_qtcp_main(struct sock *sk, const struct rate_sample *rs)
   pacing_cwnd = ca->prior_cwnd;
   if (state >= TCP_CA_Recovery)
     pacing_cwnd = ca->pipe_cwnd;
+// I want to use rs->rtt_us or bbr's filtered bbr->min_rtt_us here,but ...
   qtcp_update_pacing(sk, qtcp_gain[ca->mode], pacing_cwnd, tp->srtt_us);
 }
 

@@ -1,6 +1,6 @@
 /*
- * from fcicq's qreno 
- * it is terrible, but usable!
+ * from fcicq's qreno，it is ok!
+ * what is qtcp?it is terrible, but usable!
  */
 
 #include <linux/module.h>
